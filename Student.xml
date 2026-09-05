@@ -1,0 +1,11 @@
+---Student Object 
+<student>
+  <FirstNme> Asif </Firstname>
+  <DOB>1999-01-02</DOB>
+  <EmialID>MDASIF@gmail.com</EmailID>
+  <Address>     
+       <FlatNo> 101</Flatno>
+      <appartmentName>Tulip </appartmentName>
+<      city> Vijiyawada</city>
+    </Address>
+  </student>
