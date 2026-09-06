@@ -6,9 +6,6 @@
     department: "IT"
     roll: "DevOps"
   tasks:
-    vars:
-      organization:"Bell"
-
-- name: print message
+    - name: print message
       ansible.builtin.debug:
         msg: " Working: {{ organization }}, area: {{ department }} , designation: {{ roll }}"
