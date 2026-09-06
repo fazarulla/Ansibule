@@ -7,7 +7,7 @@
     roll: "DevOps"
 
   tasks:
-    - name: print message
+  - name: print message
       vars:
       organization: "Bellhopat"        
       ansible.builtin.debug:
