@@ -4,6 +4,6 @@
   vars_files:
   - details.yaml
   tasks:
-  - name: print message
-      ansible.builtin.debug:
+  - name: print variable values
+    ansible.builtin.debug:
         msg: " Working: {{ organization }}, area: {{ department }} , designation: {{ roll }}"
