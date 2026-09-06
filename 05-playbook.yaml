@@ -1,11 +1,10 @@
-- name: play level variable
+- name: type of variable
   hosts: local
   connection: local
   vars_files:
-    - detail.yaml
+    - details.yaml
+    
   tasks:
-  - name: print message
-    vars:
-      organization: "Bellhopat"        
-    ansible.builtin.debug:
+    - name: print message
+      ansible.builtin.debug:
         msg: " Working: {{ organization }}, area: {{ department }} , designation: {{ roll }}"
