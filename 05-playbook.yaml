@@ -2,8 +2,7 @@
   hosts: local
   connection: local
   vars_files:
-- name: detail.yaml
-  
+    - detail.yaml
   tasks:
   - name: print message
     vars:
