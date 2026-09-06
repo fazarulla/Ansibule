@@ -1,0 +1,13 @@
+- name: type of variable
+  hosts: local
+  connection: local
+  vars:
+    organization: "WBG"
+    department: "IT"
+    roll: "DevOps"
+  tasks:
+      vars:
+       organization: "Belhopat"
+    - name: print message
+      ansible.builtin.debug:
+        msg: " Working: {{ organization }}, area: {{ department }} , designation: {{ roll }}"
