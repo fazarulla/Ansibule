@@ -2,9 +2,8 @@
   hosts: local
   connection: local
   vars_files:
-    - details.yaml
-    
+  - details.yaml
   tasks:
-    - name: print message
+  - name: print message
       ansible.builtin.debug:
         msg: " Working: {{ organization }}, area: {{ department }} , designation: {{ roll }}"
