@@ -1,10 +1,9 @@
 - name: play level variable
   hosts: local
   connection: local
-  vars:
-    organization: "WBG"
-    department: "IT"
-    roll: "DevOps"
+  vars_files:
+  - name: detail.yaml
+  
 
   tasks:
   - name: print message
