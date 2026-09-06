@@ -8,7 +8,7 @@
 
   tasks:
   - name: print message
-      vars:
+    vars:
       organization: "Bellhopat"        
-      ansible.builtin.debug:
+    ansible.builtin.debug:
         msg: " Working: {{ organization }}, area: {{ department }} , designation: {{ roll }}"
