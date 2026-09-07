@@ -4,14 +4,14 @@
   vars:
     program: "ansible"
     Duration: 5
-    is active: true
+    is_active: true
     details:
       name: "ansible"
       version: 5
     topics:
-    - "ansible"
-    - "playbook"
-    - "yaml"
+    - ansible
+    - playbook
+    - yaml
   tasks:
     - name: print message
       ansible.builtin.debug:
