@@ -15,9 +15,9 @@
   tasks:
   - name: print message
     ansible.builtin.debug:
-      msg:
+      msg: |
         program: {{ program }} 
         Duration: {{ Duration }} 
-        is active: {{ is active }}
+        is active: {{ is_active }}
         details: {{ details }}
-        topics: {{ topics }}"
+        topics: {{ topics }}
