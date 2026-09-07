@@ -2,8 +2,8 @@
 - name: type of variable
   hosts: local
   connection: local
-  vars_files:
-  IS_live: true
+  vars:
+    IS_live: true
   tasks:
   - name: check live or not
     ansible.builtin.debug:
