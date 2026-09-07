@@ -1,0 +1,23 @@
+- name: demo on datatypes
+  hosts: local
+  connection: local
+  vars:
+    program: "ansible"
+    Duration: 5
+    is active: true
+    details:
+      name: "ansible"
+      version: 5
+    topics:
+      - "ansible"
+      - "playbook"
+      - "yaml"
+  -tasks:
+    - name: print message
+      ansible.builtin.debug:
+        msg: |
+             program: {{ program }} 
+             Duration: {{ Duration }} 
+             is active: {{ is active }}
+             details: {{ details }}
+             topics: {{ topics }}"
