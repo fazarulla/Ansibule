@@ -13,11 +13,11 @@
     - playbook
     - yaml
   tasks:
-    - name: print message
-      ansible.builtin.debug:
-        msg: |
-             program: {{ program }} 
-             Duration: {{ Duration }} 
-             is active: {{ is active }}
-             details: {{ details }}
-             topics: {{ topics }}"
+  - name: print message
+    ansible.builtin.debug:
+      msg: |
+        program: {{ program }} 
+        Duration: {{ Duration }} 
+        is active: {{ is active }}
+        details: {{ details }}
+        topics: {{ topics }}"
