@@ -9,10 +9,10 @@
       name: "ansible"
       version: 5
     topics:
-      - "ansible"
-      - "playbook"
-      - "yaml"
-  -tasks:
+    - "ansible"
+    - "playbook"
+    - "yaml"
+  tasks:
     - name: print message
       ansible.builtin.debug:
         msg: |
