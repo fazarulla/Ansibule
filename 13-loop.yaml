@@ -1,0 +1,19 @@
+- name: demo on loops
+  hosts: local
+  connection: local
+  become: yes 
+  tasks:
+    - name: install package
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - mysql
+        - niginx
+        - zip
+      ansible.builtin.debug:
+        msg: "Hello, {{ item }}!"
+      loop:
+        - Pandu
+        - AAhil
+        - shafik
