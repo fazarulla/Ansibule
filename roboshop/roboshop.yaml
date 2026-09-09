@@ -1,0 +1,28 @@
+- name: ec2 and rout53 recodes 
+  hosts: localhost
+  connection: local
+  vars:
+    SG_id: "sg-0718c2c4c36982ff9"
+    ami_id: "ami-081b0a6eac00b4f53"
+    evnvironment: "dev"
+    instance:
+    - mongodb
+    - catalogue 
+  tasks:
+    - name: create ec2 instance
+      amazon.aws.ec2_instance:
+        instance-type: 't3.micro'
+        security_group: "{{ SG_id }}"
+        image_id: "{{ ami_id }}"
+        name: "{{ item }}-{{ evnvironment }}"
+        tags:
+          project: "roboshop"
+          component: "{{ item }}"
+          Environment: "{{ item }}-{{ evnvironment }}"
+
+      loop: "{{ instance }}"
+      register: ec2_output
+    - name: output of ec2 instance
+      ansible.builtin.debug:
+        msg: "{{ ec2_output }}"
+    
