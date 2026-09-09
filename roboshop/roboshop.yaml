@@ -6,8 +6,8 @@
     ami_id: "ami-081b0a6eac00b4f53"
     envt: "dev"
     instance:
-    - mongodb
-    - catalogue 
+     - mongodb
+     - catalogue 
   tasks:
   - name: create ec2 instance
     amazon.aws.ec2_instance:
@@ -23,6 +23,6 @@
       loop: "{{ instance }}"
       register: ec2_output
   - name: output of ec2 instance
-      ansible.builtin.debug:
-        msg: "{{ ec2_output }}"
+    ansible.builtin.debug:
+      msg: "{{ ec2_output }}"
     
