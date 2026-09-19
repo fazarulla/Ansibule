@@ -57,10 +57,20 @@
     when: 
     - item.item == 'frontend'
     - action == 'create' 
+  - name: delete route53 recodes
+    amazon.aws.route53:
+      state: absent
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}-{{ envt }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+      loop: "{{ istance }}" 
+    when: action == 'destroy'
 
   - name: terminate ec2 instance
     amazon.aws.ec2_instance:
       state: absent
       name: "{{ item.item }}-{{ envt }}"
+      wait: false
     loop: "{{ instance }}"
     when: action == 'terminate'
