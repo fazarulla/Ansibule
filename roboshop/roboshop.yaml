@@ -12,65 +12,81 @@
     - catalogue
     
     tasks:
-- name: create ec2 instance
-  amazon.aws.ec2_instance:
-    instance_type: 't3.micro'
-    security_group: "{{ SG_id }}"
-    image_id: "{{ ami_id }}"
-    name: "{{ item }}-{{ envt }}"
-    tags:
-      project: "roboshop"
-      component: "{{ item }}"
-      Environment: "{{ envt }}"
-      name: "{{ item }}-{{ envt }}"
+     - name: create ec2 instance
+       amazon.aws.ec2_instance:
+       instance_type: 't3.micro'
+       security_group: "{{ SG_id }}"
+       image_id: "{{ ami_id }}"
+       name: "{{ item }}-{{ envt }}"
+       tags:
+         project: "roboshop"
+         component: "{{ item }}"
+         Environment: "{{ envt }}"
+         name: "{{ item }}-{{ envt }}"
 
-  loop: "{{ instance }}"
-  register: ec2_output
-  when: action == 'create'
+       loop: "{{ instance }}"
+       register: ec2_output
+       when: action == 'create'
 
-- name: output of ec2 instance
-  ansible.builtin.debug:
-    msg: "{{ ec2_output }}"
-    when: action == 'create'
-- name: Create route53 recodes
-  amazon.aws.route53:
-    state: present
-    zone: "{{ domain_name }}"
-    record: "{{ item.item }}-{{ envt }}.{{ domain_name }}"
-    type: A
-    ttl: 1
-    value: "{{ item.instances[0].private_ip_address }}"
-    wait: true
-  loop: "{{ ec2_output.results }}" 
-  when: action == 'create'
+     - name: output of ec2 instance
+       ansible.builtin.debug:
+          msg: "{{ ec2_output }}"
+       when: action == 'create'
+     
+     - name: Create route53 recodes
+       amazon.aws.route53:
+        state: present
+        zone: "{{ domain_name }}"
+        record: "{{ item.item }}-{{ envt }}.{{ domain_name }}"
+        type: A
+        ttl: 1
+        value: "{{ item.instances[0].private_ip_address }}"
+        wait: false
+        overwrite: true
+       loop: "{{ ec2_output.results }}" 
+       when: action == 'create'
   
-- name: Create route53 recodes
-  amazon.aws.route53:
-   state: present
-   zone: "{{ domain_name }}"
-   record: roboshop-{{ envt }}.{{ domain_name }}"
-   type: A
-   ttl: 1
-   value: "{{ item.instances[0].public_ip_address }}"
-   wait: true
-  loop: "{{ ec2_output.results }}"
-  when: 
-    - item.item == 'frontend'
-    - action == 'create' 
-- name: delete route53 recodes
-  amazon.aws.route53:
-    state: absent
-    zone: "{{ domain_name }}"
-    record: "{{ item.item }}-{{ envt }}.{{ domain_name }}"
-    type: A
-    ttl: 1
-  loop: "{{ istance }}" 
-  when: action == 'destroy'
+     - name: Create route53 recodes
+       amazon.aws.route53:
+        state: present
+        zone: "{{ domain_name }}"
+        record: roboshop-{{ envt }}.{{ domain_name }}"
+        type: A
+        ttl: 1
+        value: "{{ item.instances[0].public_ip_address }}"
+        wait: true
+        overwrite: true
+       loop: "{{ ec2_output.results }}"
+       when: 
+        - item.item == 'frontend'
+        - action == 'create' 
+     - name: delete route53 recodes
+       amazon.aws.route53:
+         state: absent
+         zone: "{{ domain_name }}"
+         record: "{{ item.item }}-{{ envt }}.{{ domain_name }}"
+         type: A
+         ttl: 1
+       loop: "{{ instance }}" 
+       when: 
+        - item.item == 'frontend'
+        - action == 'destroy'
+     - name: delete route53 recodes
+       amazon.aws.route53:
+          state: absent
+          zone: "{{ domain_name }}"
+          record: roboshop-{{ envt }}.{{ domain_name }}"
+          type: A
+          ttl: 1
+       loop: "{{ instance }}" 
+       when: action == 'destroy'
+       
+        
 
-- name: terminate ec2 instance
-  amazon.aws.ec2_instance:
-    state: absent
-    name: "{{ item.item }}-{{ envt }}"
-    wait: false
-  loop: "{{ instance }}"
-  when: action == 'terminate'
+     - name: terminate ec2 instance
+       amazon.aws.ec2_instance:
+         state: absent
+         name: "{{ item.item }}-{{ envt }}"
+         wait: false
+       loop: "{{ instance }}"
+       when: action == 'terminate'
