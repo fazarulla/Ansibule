@@ -7,7 +7,7 @@
     domain_name: fazarulla.online  
     envt: dev
     action: create
-    instance:
+    #instance:
     - mongodb
     - catalogue 
   tasks:
