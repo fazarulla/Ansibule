@@ -5,7 +5,7 @@
     SG_id: sg-0718c2c4c36982ff9
     ami_id: ami-081b0a6eac00b4f53
     domain_name: fazarulla.online  
-    envt: dev
+    envt: Ops
     action: create
     instance:
       - mongodb
