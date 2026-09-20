@@ -5,7 +5,7 @@
     SG_id: sg-0718c2c4c36982ff9
     ami_id: ami-081b0a6eac00b4f53
     domain_name: fazarulla.online  
-    envt: Ops
+    envt: dev
     action: create
     instance:
       - mongodb
@@ -26,12 +26,12 @@
 
        loop: "{{ instance }}"
        register: ec2_output
-       when: action == 'create'
+       #when: action == 'create'
 
     - name: output of ec2 instance
       ansible.builtin.debug:
         msg: "{{ ec2_output }}"
-      when: action == 'create'
+      #when: action == 'create'
      
     - name: Create route53 recodes
       amazon.aws.route53:
@@ -44,7 +44,7 @@
         wait: false
         overwrite: true
       loop: "{{ ec2_output.results }}" 
-      when: action == 'create'
+      #when: action == 'create'
   
     - name: Create route53 recodes
       amazon.aws.route53:
