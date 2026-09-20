@@ -14,19 +14,19 @@
   tasks:
     - name: create ec2 instance
       amazon.aws.ec2_instance:
-       instance_type: 't3.micro'
-       security_group: "{{ SG_id }}"
-       image_id: "{{ ami_id }}"
-       name: "{{ item }}-{{ envt }}"
-       tags:
-         project: "roboshop"
-         component: "{{ item }}"
-         Environment: "{{ envt }}"
-         name: "{{ item }}-{{ envt }}"
+        instance_type: 't3.micro'
+        security_group: "{{ SG_id }}"
+        image_id: "{{ ami_id }}"
+        name: "{{ item }}-{{ envt }}"
+        tags:
+          project: "roboshop"
+          component: "{{ item }}"
+          Environment: "{{ envt }}"
+          name: "{{ item }}-{{ envt }}"
 
-       loop: "{{ instance }}"
-       register: ec2_output
-       when: action == 'create'
+        loop: "{{ instance }}"
+        register: ec2_output
+        when: action == 'create'
 
     - name: output of ec2 instance
       ansible.builtin.debug:
